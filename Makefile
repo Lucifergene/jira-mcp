@@ -10,7 +10,7 @@ ENV_FILE := $(HOME)/.rh-jira-mcp.env
 
 build:
 	@echo "🛠️ Building image"
-	podman build -t $(IMG) .
+	docker build -t $(IMG) .
 
 # Notes:
 # - $(ENV_FILE) is expected to define JIRA_URL & JIRA_API_TOKEN.
@@ -18,10 +18,10 @@ build:
 #   terminal, but for the mcp.json version we don't use --tty.
 # - You can use Ctrl-D to quit nicely.
 run:
-	@podman run -i --tty --rm --env-file $(ENV_FILE) $(IMG)
+	@docker run -i --tty --rm --env-file $(ENV_FILE) $(IMG)
 
 clean:
-	podman rmi -i $(IMG)
+	docker rmi -i $(IMG)
 
 # For easier onboarding (and convenient hacking and testing), use this to
 # configure Cursor by adding or updating an entry in the ~/.cursor/mcp.json
